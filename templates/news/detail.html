@@ -1,0 +1,71 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %}
+    Jobs - News Crawler
+{% endblock %}
+{% block custom_static %}
+    {% endblock %}
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+    <main>
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">{{object.title}}</h1>
+                    <p class="lead text-muted">
+                        {% if object.text %}
+                            {{object.text}}
+                        {% endif %}
+                    </p>
+                    <p>
+                        <a href="#" class="btn btn-primary my-2">By: {{object.by}}</a>
+                          {% if object.type == 'JOB' %}
+                                <a href="#" class="btn btn-secondary my-2">
+                                    Type: {{object.type}}
+                                </a>
+                          {% elif object.type == 'STORY' %}
+                                <a href="#" class="btn btn-success my-2">
+                                    Type: {{object.type}}
+                                </a>
+                          {% elif object.type == 'POLL' %}
+                                <a href="#" class="btn btn-primary my-2">
+                                    Type: {{object.type}}
+                                </a>
+                          {% endif %}
+                                <a href="#" class="btn btn-warning my-2">
+                                    Score: {{object.score}}
+                                </a>
+
+                    </p>URL:
+                        <a href="#">
+                            {{object.url}}
+                        </a>
+
+                </div>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                {% if object.type == "poll" %}
+                    Poll Options
+                {% else %}
+                    Comments
+                {% endif %}
+                {% for comment in comments %}
+                    <p class="pb-3 mb-0 small lh-sm">
+                        <strong class="d-block text-gray-dark">Comment by: @{{comment.by}} at {{comment.added|timesince}} ago</strong>
+                        <br>
+                        {{comment.text|safe}}
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block custom_js %}
+    <script src="{% static 'js/news/news.js' %}"></script>
+{% endblock %}

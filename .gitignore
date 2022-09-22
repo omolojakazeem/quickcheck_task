@@ -1,0 +1,10 @@
+main.py
+venv
+env
+.env
+.venv
+.vscode
+db.sqlite3
+*.pyc
+.idea/
+celerybeat-schedule
